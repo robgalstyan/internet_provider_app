@@ -9,10 +9,10 @@
                     <div class="card" @if(!$service->is_enabled) style="background-color: #4a5568" @endif>
                         <div class="card-settings">
                             <div>
-                                <form id="form-check" action="{{ route('application.check') }}" method="POST" name="">
+                                <form id="form-check{{$service->id}}" action="{{ route('application.check') }}" method="POST" name="">
                                     @csrf
                                     <input name="service_id" type="hidden" value="{{ $service->id }}">
-                                    <input class="form-check-input{{$service->id}}" id="form-check-box" type="checkbox" @if($service->has_application) checked @endif @if(!$service->is_enabled) disabled @endif>
+                                    <input class="form-check-input{{$service->id}}" id="form-check-box" type="checkbox" @if($service->has_application) checked @endif @if(!$service->is_enabled) disabled @endif onclick="selectForm({{$service->id}})">
                                 </form>
                             </div>
                             <div>
@@ -47,14 +47,12 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var checkbox = document.getElementsByClassName('form-check-input{{$service->id}}');
-            checkbox.addEventListener('change', function() {
-                var form = document.getElementById('form-check');
 
-                form.submit();
-            });
-        });
+        function selectForm(id){
+            console.log(id)
+            let form = document.getElementById('form-check'+id);
+            form.submit({service_id:id})
+        }
     </script>
 @endsection
 

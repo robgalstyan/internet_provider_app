@@ -16,7 +16,6 @@ class CheckApplicationRule implements ValidationRule
     public function validate(string $attribute, mixed $serviceID, Closure $fail): void
     {
         $applicationAlreadyExists = Application::where('service_id', $serviceID)->exists();
-        dd($applicationAlreadyExists);
         if($applicationAlreadyExists){
             $fail('Incorrect service ID');
         }

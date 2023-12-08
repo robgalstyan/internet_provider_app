@@ -16,20 +16,17 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            <h5>Description</h5>
                             <p class="card-text">{{ $service->description }}</p>
                         </div>
                         <div class="card-footer">
                             <div>
-                                @foreach($services as $service)
+                                <h6> All compatibilites </h6>
                                     <?php $relations = $service->compatibilities->merge($service->reverseCompatibilities) ?>
-                                    @foreach($relations as $relation)
-                                        <p>
-                                            {{ $relation->service->name }}
-                                        </p>
-                                    @endforeach
+                                        @foreach($relations as $relation)
+                                            <p>{{ $relation->service->name }}</p>
+                                        @endforeach
                                     <?php $relations = [] ?>
-
-                                @endforeach
                             </div>
 
                         </div>

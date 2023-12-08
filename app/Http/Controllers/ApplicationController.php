@@ -16,11 +16,15 @@ class ApplicationController extends Controller
      */
     public function check(CheckRequest $request)
     {
-        $application = Application::create($request->validated());
-        $allCompatibilities = $application->service->all_compatibilities;
-        array_push($allCompatibilities, $request->service_id);
+        Application::create($request->validated());
+        $parentApplication = Application::first();
+        $allCompatibilities = $parentApplication->service->all_compatibilities;
 
+        // Disable all not available services
         Service::whereNotIn('id', $allCompatibilities)->update(['is_enabled' => false]);
+
+        // Enable all available services
+        array_push($allCompatibilities, $parentApplication->service_id);
         Service::whereIn('id', $allCompatibilities)->update(['is_enabled' => true]);
 
         return redirect()->route('services.index')->with('success', 'Application checked successfully');
