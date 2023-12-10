@@ -22,4 +22,12 @@ class ServiceCompatibility extends Model
     {
         return $this->belongsTo(Service::class);
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function reverseService(): BelongsTo
+    {
+        return $this->belongsTo(Service::class, 'compatible_id', 'id');
+    }
 }

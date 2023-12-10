@@ -22,11 +22,13 @@
                         <div class="card-footer">
                             <div>
                                 <h6> All compatibilites </h6>
-                                    <?php $relations = $service->compatibilities->merge($service->reverseCompatibilities) ?>
-                                        @foreach($relations as $relation)
-                                            <p>{{ $relation->service->name }}</p>
-                                        @endforeach
-                                    <?php $relations = [] ?>
+                                    @foreach($service->compatibilities as $serviceCompatibility)
+                                        <p><span><b>.</b> </span>{{ $serviceCompatibility->reverseService->name }}</p>
+                                    @endforeach
+
+                                    @foreach($service->reverseCompatibilities as $reverseServiceCompatibility)
+                                        <p><span><b>.</b> </span>{{ $reverseServiceCompatibility->service->name }}</p>
+                                    @endforeach
                             </div>
 
                         </div>
